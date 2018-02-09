@@ -698,6 +698,7 @@ uuflowManager.engine_step_type_is_start_or_submit_or_condition = (instance_id, t
 		setObj.inbox_users = []
 		setObj.finish_date = new Date
 		setObj.current_step_name = next_step_name
+		setObj.final_decision = 'approved'
 	else
 		# 若不是结束结点
 		# 先判断nextsteps.step.users是否为空
@@ -1285,6 +1286,7 @@ uuflowManager.engine_step_type_is_counterSign = (instance_id, trace_id, approve_
 					setObj.cc_users = instance.cc_users
 
 				setObj.current_step_name = next_step_name
+				setObj.final_decision = 'approved'
 			else
 				# 若不是结束结点
 				# 先判断nextsteps.step.users是否为空
@@ -1574,11 +1576,6 @@ uuflowManager.create_instance = (instance_from_client, user_info)->
 	if not permissions.includes("add")
 		throw new Meteor.Error('error!', "当前用户没有此流程的新建权限")
 
-	space_user = db.space_users.findOne(
-		space: space_id
-		user: user_id
-	)
-	space_user_org_info = db.organizations.findOne(space_user.organization)
 	now = new Date
 	ins_obj = {}
 	ins_obj._id = db.instances._makeNewID()
@@ -1590,11 +1587,11 @@ uuflowManager.create_instance = (instance_from_client, user_info)->
 	ins_obj.name = flow.name
 	ins_obj.submitter = user_id
 	ins_obj.submitter_name = user_info.name
-	ins_obj.applicant = user_id
-	ins_obj.applicant_name = user_info.name
-	ins_obj.applicant_organization = space_user.organization
-	ins_obj.applicant_organization_name = space_user_org_info.name
-	ins_obj.applicant_organization_fullname = space_user_org_info.fullname
+	ins_obj.applicant = if instance_from_client["applicant"] then instance_from_client["applicant"] else user_id
+	ins_obj.applicant_name = if instance_from_client["applicant_name"] then instance_from_client["applicant_name"] else user_info.name
+	ins_obj.applicant_organization = if instance_from_client["applicant_organization"] then instance_from_client["applicant_organization"] else space_user.organization
+	ins_obj.applicant_organization_name = if instance_from_client["applicant_organization_name"] then instance_from_client["applicant_organization_name"] else space_user_org_info.name
+	ins_obj.applicant_organization_fullname = if instance_from_client["applicant_organization_fullname"] then instance_from_client["applicant_organization_fullname"] else  space_user_org_info.fullname
 	ins_obj.state = 'draft'
 	ins_obj.code = ''
 	ins_obj.is_archived = false
@@ -1623,8 +1620,8 @@ uuflowManager.create_instance = (instance_from_client, user_info)->
 	appr_obj.instance = ins_obj._id
 	appr_obj.trace = trace_obj._id
 	appr_obj.is_finished = false
-	appr_obj.user = user_id
-	appr_obj.user_name = user_info.name
+	appr_obj.user = if instance_from_client["applicant"] then instance_from_client["applicant"] else user_id
+	appr_obj.user_name = if instance_from_client["applicant_name"] then instance_from_client["applicant_name"] else user_info.name
 	appr_obj.handler = user_id
 	appr_obj.handler_name = user_info.name
 	appr_obj.handler_organization = space_user.organization
@@ -1849,6 +1846,7 @@ uuflowManager.submit_instance = (instance_from_client, user_info)->
 		upObj.traces = traces
 		upObj.finish_date = new Date
 		upObj.current_step_name = next_step.name
+		upObj.final_decision = "approved"
 	else # next_step不为结束节点
 		# 取得下一步处理人
 		next_step_users = approve["next_steps"][0]["users"]
