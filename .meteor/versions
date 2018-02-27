@@ -161,7 +161,7 @@ standard-minifier-css@1.2.1
 standard-minifier-js@1.2.3
 steedos:accounts@0.0.27
 steedos:accounts-phone@0.0.3
-steedos:accounts-t9n@1.14.2_6
+steedos:accounts-t9n@1.14.2_7
 steedos:admin@0.0.1
 steedos:adminlte@2.3.12_3
 steedos:api@0.0.1
@@ -179,7 +179,7 @@ steedos:chat@0.0.1
 steedos:cms@0.0.5
 steedos:connect-bqq@0.0.1
 steedos:connect-dingtalk@0.0.1
-steedos:connect-qiyeweixin@0.0.9
+steedos:connect-qiyeweixin@0.0.10
 steedos:contacts@0.0.1
 steedos:cors@0.0.1
 steedos:dashboard@0.0.2
