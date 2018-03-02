@@ -52,6 +52,7 @@
 	"steedos_contacts_import_success": "Import successfully",
 	"steedos_contacts_users": "Users",
 	"steedos_contacts_import": "Import",
+	"steedos_contacts_invite": "Invite Users",
 	"steedos_contacts_import_contacts": "Import contacts from space users",
 	"contacts_add": "Add",
 	"contacts_edit": "Edit",
@@ -142,5 +143,7 @@
 	"Change password successfully": "Change password successfully",
 
 	"no_force_phone": "Not mandatory to bind phone number of users",
-	"no_force_phone_tips": "In addition to not mandatory binding phone number of users, require binding phone number before entering the system"
+	"no_force_phone_tips": "In addition to not mandatory binding phone number of users, require binding phone number before entering the system",
+
+	"steedos_contacts_invitation_copy_success": "Successful replication of invitations links"
 }

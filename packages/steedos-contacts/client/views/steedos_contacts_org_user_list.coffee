@@ -64,6 +64,10 @@ Template.steedos_contacts_org_user_list.helpers
 	isSpaceAdmin: ()->
 		return Steedos.isSpaceAdmin(Session.get("spaceId"));
 
+	inviteUrl: ()->
+		url = "steedos/sign-up?spaceId=#{Steedos.spaceId()}" 
+		return Meteor.absoluteUrl(url);
+
 Template.steedos_contacts_org_user_list.events
 	'click #reverse': (event, template) ->
 		$('input[name="contacts_ids"]', $("#contacts_list")).each ->
@@ -117,9 +121,6 @@ Template.steedos_contacts_org_user_list.events
 
 	'click #steedos_contacts_add_users_btn': (event,template) ->
 		Modal.show('steedos_contacts_add_user_modal')
-
-	'click #steedos_contacts_invite_users_btn': (event, template) ->
-		Modal.show('steedos_contacts_invite_users_modal')
 
 	'click #steedos_contacts_show_orgs': (event, template)->
 		listWrapper = $(".contacts-list-wrapper")
@@ -255,3 +256,22 @@ Template.steedos_contacts_org_user_list.onRendered ->
 
 	ContactsManager.handerContactModalValueLabel();
 	$("#contact_list_load").hide();
+
+	copyInfoClipboard = new Clipboard('#steedos_contacts_invite_users_btn', text: (inviteUsers) ->
+		console.log "inviteUsers.dataset.info", inviteUsers.dataset.info
+		return inviteUsers.dataset.info
+	)
+
+	Template.steedos_contacts_org_user_list.copyInfoClipboard = copyInfoClipboard
+	
+	copyInfoClipboard.on 'success', (e) ->
+		e.clearSelection()
+		toastr.success t("steedos_contacts_invitation_copy_success")
+		return
+	copyInfoClipboard.on 'error', (e) ->
+		toastr.error t("steedos_contacts_copy_failed")
+		return
+
+
+Template.steedos_contacts_org_user_list.onDestroyed ->
+	Template.steedos_contacts_org_user_list.copyInfoClipboard.destroy()

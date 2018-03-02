@@ -211,6 +211,9 @@ Admin.menuTemplate =
 					else
 						targetStr = ""
 
+					if menu._id == "space_invitation" and !Steedos.isMobile()
+						return ""
+
 					if menu._id == "profile" and Meteor.settings.public?.admin?.disableProfileInfo == true
 						return ""
 					else

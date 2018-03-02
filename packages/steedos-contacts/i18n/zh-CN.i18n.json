@@ -52,6 +52,7 @@
 	"steedos_contacts_import_success": "联系人添加成功",
 	"steedos_contacts_users": "人员",
 	"steedos_contacts_import": "导入",
+	"steedos_contacts_invite": "邀请成员",
 	"steedos_contacts_import_contacts": "从组织架构中导入联系人",
 	"contacts_add": "添加",
 	"contacts_edit": "编辑",
@@ -140,5 +141,7 @@
 	"Change password successfully": "更改密码成功",
 
 	"no_force_phone": "不强制绑定手机号的用户",
-	"no_force_phone_tips": "除了不强制绑定手机号的用户外，都要求绑定手机号后才能进入系统"
+	"no_force_phone_tips": "除了不强制绑定手机号的用户外，都要求绑定手机号后才能进入系统",
+
+	"steedos_contacts_invitation_copy_success": "已成功复制邀请链接"
 }

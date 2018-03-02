@@ -111,6 +111,15 @@ if Meteor.isClient
 		sort: 40
 		parent: "spaces"
 
+	Steedos.addAdminMenu
+		_id: "space_invitation"
+		title: "邀请成员"
+		icon: "ion ion-ios-personadd-outline"
+		url: "javascript:void(0)"
+		roles: ["space_admin"]
+		sort: 50
+		parent: "spaces"
+
 	# 高级设置
 	Steedos.addAdminMenu
 		_id: "advanced_setting"

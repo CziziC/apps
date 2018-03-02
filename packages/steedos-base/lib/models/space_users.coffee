@@ -408,6 +408,9 @@ Meteor.startup ()->
 				if !user.mobile and user.phone
 					user.mobile = user.phone.mobile
 
+				if !user.mobile
+					delete user.mobile
+
 				unless user.emails
 					unset.email = ""
 				if !user.email and user.emails
