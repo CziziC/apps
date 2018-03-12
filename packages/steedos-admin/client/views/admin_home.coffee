@@ -28,3 +28,6 @@ Template.admin_home.onRendered ->
 			copyInfoClipboard.on 'error', (e) ->
 				alert(JSON.stringify(e))
 				toastr.error t("steedos_contacts_copy_failed")
+
+Template.admin_home.onDestroyed ->
+	Template.admin_home.copyInfoClipboard.destroy()
